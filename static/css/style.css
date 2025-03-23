@@ -1,53 +1,97 @@
-*{
-    font-family: sans-serif;
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-.split {
-  height: 100%;
-  width: 50%;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  overflow-x: hidden;
-  padding-top: 20px;
+/* Layout */
+.container {
+  display: flex;
+  height: 100vh;
 }
-  
+
+/* Left Side (Image) */
 .left {
-  left: 0;
+  width: 50%;
+  background: linear-gradient(to right, #4CAF50, #2E8B57);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.centered img {
+  width: 70%;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Right Side (Content) */
 .right {
-  right: 0;
+  width: 50%;
+  background: #fff;
+  padding: 50px;
+  display: flex;
+  align-items: center;
 }
 
-
-.centered {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.content {
+  width: 100%;
   text-align: center;
 }
-  
-.centered img {
-  width: 100%;
+
+/* Sentiment Stats */
+.stats {
+  margin-bottom: 20px;
 }
 
+.stats p {
+  font-size: 18px;
+  font-weight: bold;
+}
 
+/* Textarea */
 textarea {
   width: 100%;
   height: 100px;
-  padding: 12px 20px;
-  box-sizing: border-box;
+  padding: 12px;
   border: 2px solid #ccc;
-  border-radius: 4px;
-  background-color: #f8f8f8;
+  border-radius: 5px;
   font-size: 16px;
   resize: none;
 }
 
-.comments {
-  text-decoration: underline;
-  text-underline-position: under;
+/* Button */
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  background: #4CAF50;
+  color: white;
+  font-size: 18px;
+  border-radius: 5px;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #45a049;
+}
+
+/* Reviews Section */
+.reviews {
+  margin-top: 20px;
+  height: 200px;
+  overflow-y: auto;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #f9f9f9;
+}
+
+.review {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }

@@ -1,52 +1,48 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <Link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}"></Link>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>App</title>
+    <title>Sentiment Analysis</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-
 <body>
-    <div class="split left">
-        <div class="centered">
-            <img src="../static/products/prod1.jpg" alt="">
+
+    <div class="container">
+        <!-- Left Section: Image -->
+        <div class="left">
+            <div class="centered">
+                <img src="{{ url_for('static', filename='products/prod1.png') }}" alt="Product">
+            </div>
         </div>
-    </div>
 
-    <div class="split right">
-        <div class="container mt-5 mb-5">
-            <div class="d-flex justify-content-center row">
-                <div class="d-flex flex-column col-md-8">
-                    <div>
-                        <label for="">Positive Sentiments : {{ data.positive }}</label>
-                    </div>
-                    <div>
-                        <label for="">Negative Sentiments : {{ data.negative }}</label>
-                    </div>
-                    <div>
-                        <form method="post">
-                          <textarea name="text"></textarea>
-                          <input type="submit">
-                        </form>
-                    </div>
+        <!-- Right Section: Sentiment Analysis -->
+        <div class="right">
+            <div class="content">
+                <h1>Sentiment Analysis</h1>
+                
+                <div class="stats">
+                    <p>😊 Positive Sentiments: <span id="positive">{{ data.positive }}</span></p>
+                    <p>😡 Negative Sentiments: <span id="negative">{{ data.negative }}</span></p>
+                </div>
 
-                    <div class="coment-bottom bg-white p-2 px-4">
-                        {% for review in data.reviews %}
-                        <hr/>
-                          <div
-                              class="commented-section mt-2">
-                              <div class="d-flex flex-row align-items-center commented-user">
-                                  </div>
-                                  <div class="text-nowrap bd-highlight"><span>{{ review }}</span></div>
-                                  <hr/>
-                        {% endfor %}
-                      </div>
+                <form id="sentimentForm" method="post">
+                    <textarea name="text" id="textInput" placeholder="Enter your review here..."></textarea>
+                    <button type="submit">Analyze</button>
+                </form>
+
+                <h2>Latest Reviews</h2>
+                <div class="reviews">
+                    {% for review in data.reviews %}
+                        <div class="review">{{ review }}</div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </div>
 
-    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
 </body>
 </html>

@@ -1,49 +1,54 @@
-from flask import Flask, render_template,request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from helper import preprocessing, vectorizer, get_prediction
 from logger import logging
 
 app = Flask(__name__)
 
-logging.info('Flask server started')
+logging.info('✅ Flask server started successfully')
 
-data = dict()
-reviews = []
-positive = 0
-negative = 0
+# Data store for reviews and sentiment counts
+data = {
+    "reviews": [],
+    "positive": 0,
+    "negative": 0
+}
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def index():
-    data['reviews'] = reviews
-    data['positive'] = positive
-    data['negative'] = negative
+    if request.method == "POST":
+        text = request.form.get("text", "").strip()
 
-    logging.info('========== Open home page ============')
+        if not text:
+            logging.warning("⚠️ No text provided for sentiment analysis")
+            return redirect(url_for('index'))
 
-    return render_template('index.html', data=data)
+        logging.info(f"📝 Received Text: {text}")
 
-@app.route("/", methods = ['post'])
-def my_post():
-    text = request.form['text']
-    logging.info(f'Text : {text}')
+        # Preprocessing
+        preprocessed_txt = preprocessing(text)
+        logging.info(f"🔍 Preprocessed Text: {preprocessed_txt}")
 
-    preprocessed_txt = preprocessing(text)
-    logging.info(f'Preprocessed Text : {preprocessed_txt}')
+        # Vectorization
+        vectorized_txt = vectorizer(preprocessed_txt)
+        logging.info(f"📊 Vectorized Text: {vectorized_txt}")
 
-    vectorized_txt = vectorizer(preprocessed_txt)
-    logging.info(f'Vectorized Text : {vectorized_txt}')
+        # Prediction
+        prediction = get_prediction(vectorized_txt)
+        logging.info(f"📈 Sentiment Prediction: {prediction}")
 
-    prediction = get_prediction(vectorized_txt)
-    logging.info(f'Prediction : {prediction}')
+        # Update sentiment count
+        if prediction == "negative":
+            data["negative"] += 1
+        else:
+            data["positive"] += 1
 
-    if prediction == 'negative':
-        global negative
-        negative += 1
-    else:
-        global positive
-        positive += 1
-    
-    reviews.insert(0, text)
-    return redirect(request.url)
+        # Store latest review at the top
+        data["reviews"].insert(0, text)
+
+        return redirect(url_for("index"))
+
+    logging.info("🏠 Opening Home Page")
+    return render_template("index.html", data=data)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
