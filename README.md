@@ -20,9 +20,9 @@ This is a machine learning project for Sentiment Analysis, designed to classify 
 
 ) Flask
 
-) HTML, CSS (for frontend)
+) HTML, CSS 
 
-) Jupyter Notebook (for model development)
+) Jupyter Notebook 
 
 https://github.com/user-attachments/assets/4f35384a-64ca-4d3b-9460-060d0c2e1232
 
