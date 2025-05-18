@@ -1,7 +1,7 @@
 # 📊 Sentiment Analysis Web Application
 
 This is a machine learning project for Sentiment Analysis, designed to classify text data into different sentiment categories such as Positive, Negative, Neutral, and Conflict. The project involves data preprocessing, model building, evaluation, and deploying the model using a simple Flask web application.
----
+
 # 🚀 Key Features:
 ) Text data preprocessing and cleaning
 
